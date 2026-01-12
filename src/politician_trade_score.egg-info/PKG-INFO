@@ -2,7 +2,6 @@ Metadata-Version: 2.4
 Name: politician-trade-score
 Version: 2025.1.0
 Summary: Score stocks based on US politician trade disclosures (Capitol Trades).
-Author: Insert
 License: MIT
 Requires-Python: >=3.9
 Description-Content-Type: text/markdown
@@ -14,14 +13,26 @@ Dynamic: license-file
 
 # politician-trade-score
 
-A small package that reorganizes the original script into a Python package with **classes** and a small **CLI**, while keeping the core logic unchanged.
 
 ## Install (editable)
 
 ```bash
 pip install -e .
 ```
+### On Windows PowerShell
 
+If PowerShell blocks virtual-environment activation, use this one-time PATH update to point `pip` and `poltrade` to your venv:
+
+```powershell
+# from your project root
+py -3.13 -m venv .venv
+$env:Path = "$PWD\.venv\Scripts;$env:Path"
+where python
+where pip
+
+pip install -e .
+
+#Then run the CLI
 ## CLI usage
 
 Fetch recent trades and score tickers:
@@ -55,4 +66,4 @@ score = scorer.final_score(data, "AAPL", details=True, tutorial=True)
 
 ## Notes
 
-- The `gather_data` function relies on `pandas.read_html` to scrape `capitoltrades.com` pages, just like the original.
+- The `gather_data` function relies on `pandas.read_html` to scrape `capitoltrades.com` pages.
