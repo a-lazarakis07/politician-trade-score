@@ -1,0 +1,58 @@
+Metadata-Version: 2.4
+Name: politician-trade-score
+Version: 2025.1.0
+Summary: Score stocks based on US politician trade disclosures (Capitol Trades).
+Author: Insert
+License: MIT
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas>=2.0
+Requires-Dist: numpy>=1.23
+Requires-Dist: matplotlib>=3.7
+Dynamic: license-file
+
+# politician-trade-score
+
+A small package that reorganizes the original script into a Python package with **classes** and a small **CLI**, while keeping the core logic unchanged.
+
+## Install (editable)
+
+```bash
+pip install -e .
+```
+
+## CLI usage
+
+Fetch recent trades and score tickers:
+
+```bash
+poltrade --tickers AAPL TSLA --pages 50 --hold-length 180 --buy-weight 0.8 --details
+```
+
+- `--tickers`        One or more tickers.
+- `--pages`          Number of pages to fetch from Capitol Trades (default 303 in the original).
+- `--hold-length`    Lookback window in days for the date filter (default 180 in the original).
+- `--buy-weight`     Weight on buy-ratio in final score. Recency weight is `1 - buy-weight`.
+- `--details`        Print the intermediate details shown by the original script.
+
+You can also pass explicit start and end dates (YYYY-MM-DD) instead of `--hold-length`:
+
+```bash
+poltrade --tickers NVDA --start-date 2025-06-01 --end-date 2025-09-01
+```
+
+## Library usage
+
+```python
+from poltrade.data import gather_data
+from poltrade.score import PoliticianTradeScorer
+
+data = gather_data()
+scorer = PoliticianTradeScorer(buy_ratio_weight=0.8, recency_weight=0.2)
+score = scorer.final_score(data, "AAPL", details=True, tutorial=True)
+```
+
+## Notes
+
+- The `gather_data` function relies on `pandas.read_html` to scrape `capitoltrades.com` pages, just like the original.

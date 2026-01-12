@@ -1,0 +1,2 @@
+[console_scripts]
+poltrade = poltrade.cli:main
