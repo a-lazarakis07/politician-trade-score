@@ -9,7 +9,6 @@ description = "Score stocks based on US politician trade disclosures (Capitol Tr
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
-authors = [{name = "Insert"}]
 dependencies = [
     "pandas>=2.0",
     "numpy>=1.23",
